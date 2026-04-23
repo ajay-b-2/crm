@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM | Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="login-body">
+
+    <div class="glass login-box">
+        <h2>HF CRM</h2>
+        <p style="text-align: center; color: var(--text-secondary); margin-bottom: 10px;">Team Portal</p>
+
+        <div id="loginError" style="color: var(--danger); font-size: 14px; text-align: center; display: none;">Invalid
+            credentials</div>
+
+        <div class="input-group">
+            <label for="username">Email</label>
+<input type="email" id="username" placeholder="admin@gmail.com">
+        </div>
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="••••••••" onkeypress="if(event.key === 'Enter') login()">
+        </div>
+        <div style="display: flex; gap: 12px; margin-top: 16px;">
+            <button onclick="login()" style="flex: 1;">Sign In</button>
+       <!--      <button onclick="register()" style="flex: 1; background: transparent; border: 1px solid var(--accent); color: var(--accent);">Create Account</button>  -->
+        </div>
+
+        <div
+            style="margin-top: 20px; font-size: 13px; color: var(--text-secondary); text-align: center; background: rgba(145, 158, 171, 0.08); padding: 12px; border-radius: 8px;">
+            <b>Demo accounts:</b><br>
+            Admin: <span style="color:var(--text-primary)">admin@gmail.com</span> / <span
+                style="color:var(--text-primary)">123456</span><br>
+          
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

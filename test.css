@@ -1,0 +1,292 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* ===================== ROOT ===================== */
+:root {
+    --bg-base: #97fff6;
+    --bg-panel: rgba(255,255,255,0.7);
+    --bg-card: rgba(67,86,106,0.6);
+    --border: rgba(0,0,0,0.1);
+
+    --text-primary: #111;
+    --text-secondary: #555;
+
+    --accent: #41918b;
+    --accent-hover: #007867;
+
+    --danger: #ff5630;
+    --warning: #ffab00;
+    --info: #00b8d9;
+
+    --blur: blur(16px);
+}
+
+/* ===================== BASE ===================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg-base);
+    color: var(--text-primary);
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ===================== GLASS ===================== */
+.glass {
+    background: var(--bg-panel);
+    backdrop-filter: var(--blur);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+}
+
+/* ===================== SIDEBAR ===================== */
+.sidebar {
+    width: 260px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* NAV */
+.nav-item {
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.nav-item:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+.nav-item.active {
+    background: rgba(0,167,111,0.15);
+    color: var(--accent);
+}
+
+/* LOGOUT */
+.nav-item.logout {
+    margin-top: auto;
+    color: var(--danger);
+}
+
+/* ===================== MAIN ===================== */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* ===================== SECTIONS ===================== */
+.section {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.section.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===================== STATS ===================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.stat-card {
+    padding: 20px;
+}
+
+.stat-card .value {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* ===================== DIRECTORY ===================== */
+.directory-layout {
+    display: flex;
+    gap: 15px;
+}
+
+.dir-list {
+    width: 300px;
+    padding: 15px;
+}
+
+.customer-card {
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: rgba(0,0,0,0.04);
+}
+
+.customer-card:hover {
+    background: rgba(0,0,0,0.08);
+}
+
+/* ===================== PROFILE ===================== */
+.profile-header {
+    padding: 20px;
+}
+
+.profile-title {
+    font-size: 22px;
+}
+
+/* ===================== PIPELINE ===================== */
+.pipeline-board {
+    display: flex;
+    gap: 15px;
+}
+
+.pipeline-col {
+    flex: 1;
+    padding: 10px;
+}
+
+.kanban-card {
+    padding: 12px;
+    border-radius: 8px;
+    background: var(--bg-card);
+    cursor: grab;
+}
+
+/* ===================== ADMIN ===================== */
+.admin-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+.admin-card {
+    padding: 20px;
+}
+
+/* ===================== BUTTON ===================== */
+button {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--accent-hover);
+}
+
+/* ===================== ANIMATIONS ===================== */
+@keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+body {
+    animation: fadeSlide 0.4s ease;
+}
+
+/* ===================== MOBILE ===================== */
+@media (max-width: 768px) {
+
+    body {
+        flex-direction: column;
+    }
+
+    /* Sidebar → top scroll nav */
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 10px;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .nav-item {
+        font-size: 12px;
+        padding: 8px;
+        white-space: nowrap;
+    }
+
+    /* Logout floating */
+    .nav-item.logout {
+        position: fixed;
+        bottom: 15px;
+        right: 15px;
+        background: var(--danger);
+        color: white;
+        border-radius: 50px;
+        z-index: 999;
+    }
+
+    /* Main */
+    .main-content {
+        padding: 10px;
+    }
+
+    /* Stats */
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Directory */
+    .directory-layout {
+        flex-direction: column;
+    }
+
+    .dir-list {
+        width: 100%;
+    }
+
+    /* Pipeline */
+    .pipeline-board {
+        flex-direction: column;
+    }
+
+    /* Admin */
+    .admin-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Smaller UI */
+    .stat-card {
+        padding: 12px;
+    }
+
+    .stat-card .value {
+        font-size: 18px;
+    }
+
+    input, select, button {
+        font-size: 13px;
+        padding: 8px;
+    }
+}

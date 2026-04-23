@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> CRM | Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+<div id="loadingScreen" class="loading-screen">
+    <div class="spinner"></div>
+    <p>Loading dashboard...</p>
+</div>
+
+<button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+
+    <!-- Sidebar -->
+    <nav class="sidebar glass">
+        <div class="logo">
+             <span>HF CRM</span>
+        </div>
+
+        <div class="nav-item active" onclick="switchTab('home')">
+            <i class="fa-solid fa-house"></i> Home
+        </div>
+        <div class="nav-item" onclick="switchTab('directory')">
+            <i class="fa-solid fa-address-book"></i> Directory & Notes
+        </div>
+        <div class="nav-item" onclick="switchTab('pipeline')">
+            <i class="fa-solid fa-layer-group"></i> Sales Pipeline
+        </div>
+        <div class="nav-item" id="nav-admin" onclick="switchTab('admin')" style="display: none;">
+            <i class="fa-solid fa-shield-halved"></i> Admin
+        </div>
+
+
+      
+
+<!-- ✅ KEEP THIS ONLY -->
+<div class="nav-item logout" onclick="logout()">
+    <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+    
+</div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <h1 id="pageTitle">Dashboard</h1>
+            <div class="user-info">
+                <i class="fa-solid fa-circle-user" style="font-size: 24px; color: var(--text-secondary)"></i>
+                <div>
+                    <div style="font-weight: 600; font-size: 14px;" id="currentUserName">User</div>
+                    <div class="role-badge" id="currentUserRole">Role</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Home Section -->
+        <section id="sec-home" class="section active">
+            <div class="stats-grid">
+                <div class="glass stat-card">
+                    <span class="label">Total Customers</span>
+                    <span class="value" id="stat-customers">0</span>
+                </div>
+                <div class="glass stat-card">
+                    <span class="label">Active Deals</span>
+                    <span class="value" id="stat-deals">0</span>
+                </div>
+                <div class="glass stat-card earnings" id="card-earnings">
+                    <span class="label">Total Earnings</span>
+                    <span class="value" id="stat-earnings">₹0</span>
+                </div>
+            </div>
+
+            <div class="glass"
+                style="margin-top: 32px; padding: 32px; border-radius: 16px; text-align: center; background: linear-gradient(135deg, rgba(0, 167, 111, 0.1) 0%, rgba(0, 184, 217, 0.1) 100%);">
+                <h2 style="font-size: 24px; margin-bottom: 12px;">Welcome to HF CRM</h2>
+                <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto; line-height: 1.6;">
+                    Manage your customers, track sales in the pipeline, and collaborate with your team.
+                  
+                </p>
+            </div>
+        </section>
+
+        <!-- Directory Section -->
+        <section id="sec-directory" class="section">
+            <div class="directory-layout">
+                <div class="glass dir-list">
+                    <input type="text" id="search" placeholder="Search customers..." onkeyup="renderDirectory()">
+                    <div class="dir-filters" style="display: flex; gap: 8px; margin-bottom: 12px;">
+                        <select id="filterLead" onchange="renderDirectory()" style="flex: 1;">
+                            <option value="all">All Customers</option>
+                            <option value="New Lead">New Leads</option>
+                            <option value="Hot">Hot Prospects</option>
+                            <option value="Client">Clients</option>
+                        </select>
+                        <button onclick="showAddCustomerModal()" style="padding: 0 12px; background: var(--accent); color: white; border: none; border-radius: 8px; cursor: pointer;"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                    <div id="customerList"
+                        style="display: flex; flex-direction: column; gap: 12px; padding-right: 4px; overflow-y: auto; flex: 1;">
+                    </div>
+                </div>
+
+                <div class="glass dir-profile" id="profileView">
+                    <div class="empty-state">
+                        <i class="fa-solid fa-user-astronaut"></i>
+                        <p>Select a customer to view their profile ("The Brain")</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pipeline Section -->
+        <section id="sec-pipeline" class="section">
+            <div class="pipeline-board">
+                <div class="pipeline-col">
+                    <h3>New <span id="count-new">0</span></h3>
+                    <div class="kanban-cards" id="pipe-new" ondrop="drop(event)" ondragover="allowDrop(event)"
+                        data-stage="New"></div>
+                </div>
+                <div class="pipeline-col">
+                    <h3>In Progress <span id="count-progress">0</span></h3>
+                    <div class="kanban-cards" id="pipe-progress" ondrop="drop(event)" ondragover="allowDrop(event)"
+                        data-stage="In Progress"></div>
+                </div>
+                <div class="pipeline-col">
+                    <h3>Finished <span id="count-finished">0</span></h3>
+                    <div class="kanban-cards" id="pipe-finished" ondrop="drop(event)" ondragover="allowDrop(event)"
+                        data-stage="Finished"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Section -->
+        <section id="sec-admin" class="section">
+            <div class="admin-grid">
+                <div class="glass admin-card">
+                    <h3><i class="fa-solid fa-user-plus" style="color: var(--accent); margin-right: 8px;"></i> Add New
+                        User</h3>
+                    <div class="input-group">
+                        <label>Username</label>
+                        <input type="text" id="newUsername" placeholder="Enter username">
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="newPassword" placeholder="Enter password">
+                    </div>
+                    <div class="input-group">
+                        <label>Role</label>
+                        <select id="newRole">
+                            <option value="Staff">Staff (view earnings)</option>
+                            <option value="Admin">Admin (Full Access)</option>
+                        </select>
+                    </div>
+                    <button onclick="addUser()" style="margin-top: 8px;">Create User</button>
+                </div>
+                <div class="glass admin-card">
+                    <h3><i class="fa-solid fa-users" style="color: var(--info); margin-right: 8px;"></i> Team Members
+                    </h3>
+                    <div class="user-list" id="usersList"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Add Customer Modal -->
+    <div id="addCustomerModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+        <div class="glass" style="padding: 24px; border-radius: 12px; width: 400px; max-width: 90%;">
+            <h2 style="margin-bottom: 16px;">Add New Customer</h2>
+            <div class="input-group">
+                <label>Name</label>
+                <input type="text" id="newCustName" placeholder="Customer Name">
+            </div>
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="newCustEmail" placeholder="Customer Email">
+            </div>
+            <div class="input-group">
+                <label>Phone</label>
+                <input type="text" id="newCustPhone" placeholder="Customer Phone">
+            </div>
+            <div class="input-group">
+                <label>Value (₹)</label>
+                <input type="number" id="newCustValue" placeholder="Expected Value" value="0">
+            </div>
+            <div style="display: flex; gap: 12px; margin-top: 24px;">
+                <button onclick="addCustomer()" style="flex: 1;">Save</button>
+                <button onclick="closeAddCustomerModal()" style="flex: 1; background: transparent; border: 1px solid var(--text-secondary);">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+   <script type="module" src="script.js"></script>
+</body>
+
+</html>
