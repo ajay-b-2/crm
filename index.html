@@ -9,38 +9,242 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
+<style>
+    html, body.login-body {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        display: block !important;
+    }
+</style>
+
+<!-- 🎥 Background Video -->
+<video autoplay muted loop playsinline class="bg-video">
+    <source src="gr.mp4" type="video/mp4">
+</video>
+
+<!-- Overlay (for dark effect) -->
+<div class="video-overlay"></div>
+
+
+
 <body class="login-body">
 
-    <div class="glass login-box">
-        <h2>HF CRM</h2>
-        <p style="text-align: center; color: var(--text-secondary); margin-bottom: 10px;">Team Portal</p>
-
-        <div id="loginError" style="color: var(--danger); font-size: 14px; text-align: center; display: none;">Invalid
-            credentials</div>
-
-        <div class="input-group">
-            <label for="username">Email</label>
-<input type="email" id="username" placeholder="admin@gmail.com">
+    <!-- Navigation Bar -->
+    <nav class="glass" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; margin: 20px; border-radius: 16px; position: sticky; top: 20px; z-index: 100;">
+        <div class="logo" style="margin-bottom: 0;">
+            <i class="fas fa-chart-pie"></i>
+            <span>HF CRM</span>
         </div>
-        <div class="input-group">
-            <label>Password</label>
-            <input type="password" id="password" placeholder="••••••••" onkeypress="if(event.key === 'Enter') login()">
+        <div style="display: flex; gap: 30px; align-items: center;">
+            <a href="#features" style="color: var(--text-primary); text-decoration: none; font-weight: 500; font-size: 15px; transition: color 0.2s;">Features</a>
+            <a href="#" style="color: var(--text-primary); text-decoration: none; font-weight: 500; font-size: 15px; transition: color 0.2s;">Pricing</a>
+            <a href="#" style="color: var(--text-primary); text-decoration: none; font-weight: 500; font-size: 15px; transition: color 0.2s;">Contact</a>
+            <button onclick="document.getElementById('login-section').scrollIntoView({behavior: 'smooth'})" style="padding: 10px 24px; font-size: 14px; border-radius: 8px;">Sign In</button>
         </div>
-        <div style="display: flex; gap: 12px; margin-top: 16px;">
-            <button onclick="login()" style="flex: 1;">Sign In</button>
-       <!--      <button onclick="register()" style="flex: 1; background: transparent; border: 1px solid var(--accent); color: var(--accent);">Create Account</button>  -->
+    </nav>
+
+    <!-- Hero Section -->
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 40px 80px 80px; min-height: calc(100vh - 140px); gap: 60px; flex-wrap: wrap;">
+        
+        <!-- Left: Marketing Content -->
+        <div style="flex: 1; min-width: 400px; max-width: 650px;">
+            <div style="display: inline-block; padding: 8px 16px; background: rgba(0, 167, 111, 0.1); color: var(--accent); border-radius: 30px; font-weight: 600; font-size: 13px; margin-bottom: 24px; border: 1px solid rgba(0, 167, 111, 0.2);">
+                <i class="fas fa-star" style="margin-right: 6px;"></i> The #1 Rated CRM Platform
+            </div>
+            <h1 style="font-size: 64px; font-weight: 800; line-height: 1.1; margin-bottom: 24px; color: var(--text-primary); letter-spacing: -1px;">
+                Manage your <br/>
+                <span style="background: linear-gradient(90deg, #00A76F, #00B8D9); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">relationships</span> with ease.
+            </h1>
+            <p style="font-size: 18px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 40px; font-weight: 400;">
+                HF CRM empowers your team to close deals faster, manage pipelines effortlessly, and build lasting relationships with your clients. Experience the future of sales management today.
+            </p>
+            <div style="display: flex; gap: 16px;">
+                <button onclick="document.getElementById('login-section').scrollIntoView({behavior: 'smooth'})" style="padding: 16px 32px; font-size: 16px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0, 167, 111, 0.24);">Get Started Free</button>
+                <button style="padding: 16px 32px; font-size: 16px; background: var(--bg-panel); color: var(--text-primary); border: 1px solid var(--border); border-radius: 12px; backdrop-filter: var(--blur);" onclick="alert('Demo video coming soon!')">
+                    <i class="fas fa-play" style="color: var(--accent);"></i> Watch Demo
+                </button>
+            </div>
+            
+            <div style="margin-top: 60px; display: flex; gap: 40px; align-items: center; padding-top: 30px; border-top: 1px solid var(--border);">
+                <div>
+                    <h3 style="font-size: 32px; font-weight: 800; margin-bottom: 4px; color: var(--text-primary);">10k+</h3>
+                    <p style="font-size: 14px; color: var(--text-secondary); font-weight: 500;">Active Users</p>
+                </div>
+                <div style="width: 1px; height: 50px; background: var(--border);"></div>
+                <div>
+                    <h3 style="font-size: 32px; font-weight: 800; margin-bottom: 4px; color: var(--text-primary);">99.9%</h3>
+                    <p style="font-size: 14px; color: var(--text-secondary); font-weight: 500;">Uptime SLA</p>
+                </div>
+                <div style="width: 1px; height: 50px; background: var(--border);"></div>
+                <div>
+                    <h3 style="font-size: 32px; font-weight: 800; margin-bottom: 4px; color: var(--text-primary);">4.9/5</h3>
+                    <p style="font-size: 14px; color: var(--text-secondary); font-weight: 500;">Customer Rating</p>
+                </div>
+            </div>
         </div>
 
-        <div
-            style="margin-top: 20px; font-size: 13px; color: var(--text-secondary); text-align: center; background: rgba(145, 158, 171, 0.08); padding: 12px; border-radius: 8px;">
-            <b>Demo accounts:</b><br>
-            Admin: <span style="color:var(--text-primary)">admin@gmail.com</span> / <span
-                style="color:var(--text-primary)">123456</span><br>
-          
+        <!-- Right: Login Form -->
+        <div id="login-section" style="flex: 1; display: flex; justify-content: flex-end; min-width: 400px;">
+            <div class="glass login-box" style="margin: 0; width: 100%; max-width: 440px; border-radius: 24px; padding: 48px 40px; ">
+                <h2 style="font-size: 32px; margin-bottom: 8px;">Welcome Back</h2>
+                <p style="text-align: center; color: var(--text-secondary); margin-bottom: 32px; font-size: 15px;">Sign in to continue to your dashboard</p>
+
+                <div id="loginError" style="color: var(--danger); font-size: 14px; text-align: center; display: none; background: rgba(255, 86, 48, 0.12); padding: 12px; border-radius: 8px; margin-bottom: 20px; font-weight: 500; border: 1px solid rgba(255, 86, 48, 0.2);">
+                    <i class="fas fa-exclamation-circle" style="margin-right: 6px;"></i> Invalid credentials
+                </div>
+
+                <div class="input-group" style="margin-bottom: 20px;">
+                    <label for="username" style="font-weight: 500; margin-bottom: 8px; color: var(--text-primary);">Email Address</label>
+                    <input type="email" id="username" placeholder="admin@gmail.com" style="padding: 14px 16px; border-radius: 10px;">
+                </div>
+                <div class="input-group" style="margin-bottom: 12px;">
+                    <label for="password" style="font-weight: 500; margin-bottom: 8px; color: var(--text-primary);">Password</label>
+                    <input type="password" id="password" placeholder="••••••••" style="padding: 14px 16px; border-radius: 10px;" onkeypress="if(event.key === 'Enter') login()">
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+                    <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary); cursor: pointer;">
+                        <input type="checkbox" style="width: auto; margin: 0; accent-color: var(--accent);"> Remember me
+                    </label>
+                    <a href="#" style="font-size: 13px; color: var(--accent); text-decoration: none; font-weight: 500;">Forgot password?</a>
+                </div>
+                
+                <button onclick="login()" style="width: 100%; padding: 16px; margin-bottom: 24px; border-radius: 12px; font-size: 16px;">
+                    Sign In <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                </button>
+
+                <div style="font-size: 14px; color: var(--text-secondary); background: rgba(145, 158, 171, 0.08); padding: 20px; border-radius: 12px; border: 1px dashed var(--border);">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; color: var(--text-primary); font-weight: 600;">
+                        <i class="fas fa-info-circle" style="color: var(--info);"></i> Demo Accounts
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(136, 67, 150, 0.247); padding: 10px 12px; border-radius: 8px;">
+                        <span style="font-weight: 500;">Admin</span>
+                        <span style="font-family: monospace; font-size: 13px;">admin@gmail.com / 123456</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Features Section -->
+    <div id="features" style="padding: 100px 80px; background: rgba(65,38, 47, 0.4); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur); border-top: 1px solid var(--border);">
+        <div style="text-align: center; margin-bottom: 70px;">
+            <div style="display: inline-block; padding: 6px 14px; background: rgba(0, 184, 217, 0.1); color: var(--info); border-radius: 20px; font-weight: 600; font-size: 13px; margin-bottom: 16px;">
+                WHY CHOOSE US
+            </div>
+            <h2 style="font-size: 42px; font-weight: 800; margin-bottom: 20px; color: var(--text-primary);">Everything you need to scale</h2>
+            <p style="font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; line-height: 1.6;">Our comprehensive suite of tools helps you manage every aspect of your customer relationships seamlessly.</p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto;">
+            <!-- Feature 1 -->
+            <div class="glass" style="padding: 40px; border-radius: 24px; transition: transform 0.3s, box-shadow 0.3s; background: rgba(112, 42, 131, 0.6);">
+                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, rgba(0, 167, 111, 0.2), rgba(0, 167, 111, 0.05)); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: #00A76F; font-size: 28px; box-shadow: 0 8px 16px rgba(0, 167, 111, 0.1);">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 16px;">Contact Management</h3>
+                <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.6;">Store and organize all your customer details, communication history, and important notes securely in one centralized hub.</p>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="glass" style="padding: 40px; border-radius: 24px; transition: transform 0.3s, box-shadow 0.3s; background: rgba(112, 42, 131, 0.6);">
+                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, rgba(0, 184, 217, 0.2), rgba(0, 184, 217, 0.05)); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: #00B8D9; font-size: 28px; box-shadow: 0 8px 16px rgba(0, 184, 217, 0.1);">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 16px;">Visual Pipelines</h3>
+                <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.6;">Visualize your sales process with our intuitive drag-and-drop Kanban boards. Never lose track of a deal's progress again.</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="glass" style="padding: 40px; border-radius: 24px; transition: transform 0.3s, box-shadow 0.3s; background: rgba(112, 42, 131, 0.6);">
+                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, rgba(255, 171, 0, 0.2), rgba(255, 171, 0, 0.05)); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: #FFAB00; font-size: 28px; box-shadow: 0 8px 16px rgba(255, 171, 0, 0.1);">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
+                <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 16px;">Advanced Analytics</h3>
+                <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.6;">Gain actionable insights into your team's performance with comprehensive real-time dashboards and detailed reports.</p>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="glass" style="padding: 40px; border-radius: 24px; transition: transform 0.3s, box-shadow 0.3s; background: rgba(112, 42, 131, 0.6);">
+                <div style="width: 64px; height: 64px; background: linear-gradient(135deg, rgba(255, 86, 48, 0.2), rgba(255, 86, 48, 0.05)); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; color: #FF5630; font-size: 28px; box-shadow: 0 8px 16px rgba(255, 86, 48, 0.1);">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 16px;">Enterprise Security</h3>
+                <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.6;">Bank-grade encryption, role-based access controls, and automated backups keep your sensitive customer data safe.</p>
+            </div>
+            <!-- Live Analytics Section -->
+            <div class="glass anim-float-up anim-stagger-5" style="padding:40px; border-radius:24px; background: rgba(112, 42, 131, 0.6); text-align:center;">
+                <h2 style="font-size:36px; font-weight:800; color:var(--text-primary); margin-bottom:20px;">Live Analytics Overview</h2>
+                <img src="https://cdn-icons-png.flaticon.com/128/1325/1325104.png" alt="Analytics illustration" style="max-width:100%; height:auto; border-radius:12px; box-shadow:0 8px 16px rgba(0,0,0,0.2);">
+                <p style="font-size:16px; color:var(--text-secondary); margin-top:12px;">Real‑time insights visualized with sleek, glass‑morphic charts.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div style="padding: 100px 80px; text-align: center; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(0, 167, 111, 0.1) 0%, transparent 70%); z-index: -1;"></div>
+        <h2 style="font-size: 48px; font-weight: 800; margin-bottom: 24px; color: var(--text-primary);">Ready to transform your sales?</h2>
+        <p style="font-size: 20px; color: var(--text-secondary); max-width: 600px; margin: 0 auto 40px; line-height: 1.6;">Join thousands of businesses that trust HF CRM to grow their revenue and streamline their operations.</p>
+        <button onclick="document.getElementById('login-section').scrollIntoView({behavior: 'smooth'})" style="padding: 18px 40px; font-size: 18px; border-radius: 12px; box-shadow: 0 12px 24px rgba(0, 167, 111, 0.24); transition: transform 0.2s, box-shadow 0.2s;">
+            Start Your Free Trial
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer style="padding: 60px 80px 40px; background: rgba(29, 0, 34, 0.95); color: white; border-top: 1px solid var(--border);">
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; max-width: 1200px; margin: 0 auto 60px;">
+            <div style="max-width: 300px;">
+                <div class="logo" style="margin-bottom: 20px; color: white;">
+                    <i class="fas fa-chart-pie" style="color: var(--accent);"></i>
+                    <span style="background: linear-gradient(90deg, #00A76F, #00B8D9); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">HF CRM</span>
+                </div>
+                <p style="color: rgba(255,255,255,0.7); font-size: 15px; line-height: 1.6; margin-bottom: 24px;">The modern, intuitive CRM platform designed to help your business build better relationships and close more deals.</p>
+                <div style="display: flex; gap: 16px;">
+                    <a href="#" style="color: rgba(255,255,255,0.7); font-size: 20px; transition: color 0.2s;"><i class="fab fa-twitter"></i></a>
+                    <a href="#" style="color: rgba(255,255,255,0.7); font-size: 20px; transition: color 0.2s;"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" style="color: rgba(255,255,255,0.7); font-size: 20px; transition: color 0.2s;"><i class="fab fa-facebook"></i></a>
+                    <a href="#" style="color: rgba(255,255,255,0.7); font-size: 20px; transition: color 0.2s;"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 60px; flex-wrap: wrap;">
+                <div>
+                    <h4 style="color: white; font-size: 16px; font-weight: 600; margin-bottom: 20px;">Product</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s;">Features</a></li>
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s;">Pricing</a></li>
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s;">Integrations</a></li>
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s;">Changelog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: white; font-size: 16px; font-weight: 600; margin-bottom: 20px;">Resources</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s;">Documentation</a></li>
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s;">Help Center</a></li>
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s;">Blog</a></li>
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s;">Community</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: white; font-size: 16px; font-weight: 600; margin-bottom: 20px;">Company</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;">
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s;">About Us</a></li>
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s;">Careers</a></li>
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s;">Privacy Policy</a></li>
+                        <li><a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color 0.2s;">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div style="border-top: 1px solid rgba(77, 0, 154, 0.1); padding-top: 24px; text-align: center; color: rgba(255,255,255,0.5); font-size: 14px;">
+            <p>© 2026 HF CRM. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script type="module" src="script.js"></script>
 </body>
-
 </html>
