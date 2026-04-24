@@ -160,7 +160,7 @@ async function logout() {
 
         localStorage.clear();
 
-        window.location.replace("index.html");
+        window.location.replace("/");
     } catch (e) {
         console.error("Logout error:", e);
     }
@@ -185,7 +185,7 @@ if (window.location.pathname.includes("dashboard.html")) {
         const activeUser = localStorage.getItem('crm_active_user');
 
         if (!activeUser) {
-            window.location.replace("index.html");
+            window.location.replace("/");
             return;
         }
 
@@ -603,7 +603,52 @@ async function drop(ev) {
     }
 }
 
-// ---------------- GLOBAL EXPORT ---------------- //
+function openSettings(section) {
+    const modal = document.getElementById('settingsModal');
+    if (!modal) return;
+    // Hide all specific sections
+    document.getElementById('settings-home').style.display = 'none';
+    document.getElementById('settings-directory').style.display = 'none';
+    document.getElementById('settings-pipeline').style.display = 'none';
+    document.getElementById('settings-admin').style.display = 'none';
+    // Show relevant
+    if (section === 'home') document.getElementById('settings-home').style.display = 'block';
+    else if (section === 'directory') document.getElementById('settings-directory').style.display = 'block';
+    else if (section === 'pipeline') document.getElementById('settings-pipeline').style.display = 'block';
+    else if (section === 'admin') document.getElementById('settings-admin').style.display = 'block';
+    modal.style.display = 'flex';
+}
+
+function closeSettings() {
+    const modal = document.getElementById('settingsModal');
+    if (modal) modal.style.display = 'none';
+}
+
+function applySettings() {
+    // Example: toggle dark mode
+    const dark = document.getElementById('toggleDarkMode')?.checked;
+    if (dark !== undefined) {
+        document.documentElement.style.filter = dark ? 'invert(1) hue-rotate(180deg)' : 'none';
+    }
+    // Directory notes toggle (placeholder)
+    const showNotes = document.getElementById('toggleShowNotes')?.checked;
+    if (showNotes !== undefined) {
+        const notes = document.querySelectorAll('#profileView .role-badge');
+        notes.forEach(n => n.style.display = showNotes ? 'inline-block' : 'none');
+    }
+    // Auto sort placeholder
+    const autoSort = document.getElementById('toggleAutoSort')?.checked;
+    if (autoSort) {
+        // Simple re-render to sort cards by value descending
+        customers.sort((a,b)=> (b.value||0)-(a.value||0));
+        renderPipeline();
+    }
+    // Feature X placeholder
+    // For now just log
+    console.log('Settings applied');
+    closeSettings();
+}
+
 
 // ✅ Make functions global
 window.switchTab = switchTab;
