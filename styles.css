@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
-    --bg-base: linear-gradient(to right, rgb(65, 38, 89), #734b6d);
+    --bg-base: linear-gradient(to right, rgb(58, 26, 85), #350e2f);
 
     --bg-panel: rgba(30, 30, 30, 0.12);
     --bg-card: rgba(255, 255, 255, 0.12);
@@ -9,7 +9,7 @@
     --border: rgba(255, 255, 255, 0.15);
 
     --text-primary: #ffffff;
-    --text-secondary: #d1c4e9;
+    --text-secondary: #ffffff;
 
     --accent: #9b5de5;
     --accent-hover: #7b2cbf;
@@ -585,6 +585,7 @@ button:active {
     display: flex;
     justify-content: flex-end;
     min-width: 400px;
+    color: #cfcfcf;
 }
 
 /* Login Box */
@@ -594,7 +595,7 @@ button:active {
     padding: 40px;
     border-radius: 24px;
 
-    background: rgba(150, 38, 133, 0.25);
+    background: rgba(163, 141, 160, 0.25);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
 
@@ -610,6 +611,7 @@ button:active {
 
     position: relative;
     overflow: hidden;
+    
 }
 
 /* Glass reflection */
@@ -620,7 +622,7 @@ button:active {
     border-radius: 24px;
     background: linear-gradient(
         120deg,
-        rgba(255,255,255,0.15),
+        rgba(241, 241, 241, 0.15),
         transparent 40%
     );
 }
