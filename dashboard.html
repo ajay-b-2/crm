@@ -16,7 +16,9 @@
     <p>Loading dashboard...</p>
 </div>
 
+
 <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+<div class="dashboard-container">
 
 
     <!-- Sidebar -->
@@ -62,30 +64,308 @@
         </header>
 
         <!-- Home Section -->
-        <section id="sec-home" class="section active">
-            <div class="stats-grid">
-                <div class="glass stat-card">
-                    <span class="label">Total Customers</span>
-                    <span class="value" id="stat-customers">0</span>
+        <section id="sec-home" class="section active" style="overflow-y:auto; padding-right: 12px; padding-bottom: 40px;">
+            <!-- Welcome Banner -->
+            <div class="glass anim-float-up" style="margin-bottom: 24px; padding: 32px; border-radius: 16px; background: linear-gradient(135deg, rgba(122, 0, 167, 0.1) 0%, rgba(0, 184, 217, 0.1) 100%); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; border: 1px solid rgba(0, 167, 111, 0.2);">
+                <div>
+                    <h2 style="font-size: 28px; margin-bottom: 8px; color: var(--text-primary);">Welcome back to HF CRM! 👋</h2>
+                    <p style="color: var(--text-secondary); font-size: 15px;">Here is what's happening with your business today.</p>
                 </div>
-                <div class="glass stat-card">
-                    <span class="label">Active Deals</span>
-                    <span class="value" id="stat-deals">0</span>
-                </div>
-                <div class="glass stat-card earnings" id="card-earnings">
-                    <span class="label">Total Earnings</span>
-                    <span class="value" id="stat-earnings">₹0</span>
+                <div style="display: flex; gap: 12px;">
+                    <button onclick="switchTab('directory')" style="background: rgba(145, 158, 171, 0.12); color: var(--text-primary); border: 1px solid var(--border); transition: transform 0.2s;"><i class="fa-solid fa-users" style="margin-right: 6px;"></i> View Customers</button>
+                    <button onclick="switchTab('pipeline')" style="box-shadow: 0 8px 16px rgba(0, 167, 111, 0.24); transition: transform 0.2s;"><i class="fa-solid fa-plus" style="margin-right: 6px;"></i> Manage Pipeline</button><button onclick="openSettings()" style="background: rgba(145,158,171,0.12); color: var(--text-primary); border:1px solid var(--border); transition: transform 0.2s;"><i class="fa-solid fa-gear" style="margin-right:6px;"></i> Settings</button>
                 </div>
             </div>
 
-            <div class="glass"
-                style="margin-top: 32px; padding: 32px; border-radius: 16px; text-align: center; background: linear-gradient(135deg, rgba(0, 167, 111, 0.1) 0%, rgba(0, 184, 217, 0.1) 100%);">
-                <h2 style="font-size: 24px; margin-bottom: 12px;">Welcome to HF CRM</h2>
-                <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto; line-height: 1.6;">
-                    Manage your customers, track sales in the pipeline, and collaborate with your team.
-                  
-                </p>
+            <!-- Stats Grid -->
+            <div class="stats-grid" style="margin-bottom: 24px;">
+                <div class="glass stat-card anim-float-up anim-stagger-1" style="display: flex; align-items: center; gap: 20px; padding: 24px; border-radius: 16px; transition: transform 0.3s; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(0, 167, 111, 0.16); color: #00A76F; display: flex; justify-content: center; align-items: center; font-size: 28px; flex-shrink: 0;">
+                        <i class="fa-solid fa-user-group"></i>
+                    </div>
+                    <div>
+                        <div class="value" id="stat-customers" style="font-size: 32px; font-weight: 700; margin-bottom: 4px;">0</div>
+                        <div class="label" style="color: var(--text-secondary); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Total Customers</div>
+                    </div>
+                </div>
+                <div class="glass stat-card anim-float-up anim-stagger-2" style="display: flex; align-items: center; gap: 20px; padding: 24px; border-radius: 16px; transition: transform 0.3s; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(255, 171, 0, 0.16); color: #FFAB00; display: flex; justify-content: center; align-items: center; font-size: 28px; flex-shrink: 0;">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <div>
+                        <div class="value" id="stat-deals" style="font-size: 32px; font-weight: 700; margin-bottom: 4px;">0</div>
+                        <div class="label" style="color: var(--text-secondary); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Active Deals</div>
+                    </div>
+                </div>
+                <div class="glass stat-card earnings anim-float-up anim-stagger-3" id="card-earnings" style="display: flex; align-items: center; gap: 20px; padding: 24px; border-radius: 16px; transition: transform 0.3s; cursor: default;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+                    <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(0, 184, 217, 0.16); color: #00B8D9; display: flex; justify-content: center; align-items: center; font-size: 28px; flex-shrink: 0;">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+                    <div>
+                        <div class="value" id="stat-earnings" style="font-size: 32px; font-weight: 700; margin-bottom: 4px;">₹0</div>
+                        <div class="label" style="color: var(--text-secondary); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Total Earnings</div>
+                    </div>
+                </div>
             </div>
+
+            <!-- Content Grid (Chart + Activity) -->
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px;">
+                
+    <!-- me added Performance Chart Placeholder -->
+               <div class="graph-container">
+
+    <div class="graph-wrapper">
+
+    <!-- Y Axis -->
+    <div class="y-axis">
+        <span>100</span>
+        <span>75</span>
+        <span>50</span>
+        <span>25</span>
+        <span>0</span>
+    </div>
+
+    <!-- Graph -->
+    <div class="graph-container">
+
+        <!-- Bars -->
+        <div class="bars">
+            <div class="bar" style="--h:40"></div>
+            <div class="bar" style="--h:65"></div>
+            <div class="bar" style="--h:35"></div>
+            <div class="bar" style="--h:85"></div>
+            <div class="bar" style="--h:55"></div>
+            <div class="bar highlight" style="--h:95"></div>
+            <div class="bar" style="--h:70"></div>
+        </div>
+
+        <!-- Line -->
+        <svg class="trend-line" viewBox="0 0 700 200" preserveAspectRatio="none">
+            <path d="M50,120 L150,70 L250,130 L350,40 L450,90 L550,20 L650,80"/>
+        </svg>
+
+        <!-- Arrow -->
+        <div class="trend-arrow"></div>
+
+    </div>
+</div>
+
+<!-- X Axis -->
+<div class="x-axis">
+    <span>Mon</span>
+    <span>Tue</span>
+    <span>Wed</span>
+    <span>Thu</span>
+    <span>Fri</span>
+    <span>Sat</span>
+    <span>Sun</span>
+</div>
+
+    
+
+
+
+<!-- Recent Activity -->
+                <div class="glass anim-float-up anim-stagger-5" style="padding: 24px; border-radius: 16px; display: flex; flex-direction: column;">
+                    <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 24px;">Recent Activity</h3>
+                    <div style="display: flex; flex-direction: column; gap: 24px; flex: 1;">
+                        <div style="display: flex; gap: 16px; padding: 8px; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(145,158,171,0.08)'" onmouseout="this.style.background='transparent'">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(224, 235, 245, 0.08); color: #00A76F; display: flex; justify-content: center; align-items: center; font-size: 16px; flex-shrink: 0; transition: transform 0.3s;" onmouseover="this.style.transform='rotate(15deg)'" onmouseout="this.style.transform='rotate(0deg)'">
+                                <i class="fa-solid fa-user-plus"></i>
+                            </div>
+                            <div>
+                                <p style="font-size: 14px; margin-bottom: 4px; color: var(--text-primary);"><strong>New lead added</strong></p>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.4;">Sarah Jenkins from Acme Corp was added to directory.</p>
+                                <p style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;"><i class="fa-regular fa-clock" style="margin-right: 4px;"></i> 2 hours ago</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 16px; padding: 8px; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(145,158,171,0.08)'" onmouseout="this.style.background='transparent'">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(0, 184, 217, 0.12); color: #00B8D9; display: flex; justify-content: center; align-items: center; font-size: 16px; flex-shrink: 0; transition: transform 0.3s;" onmouseover="this.style.transform='rotate(15deg)'" onmouseout="this.style.transform='rotate(0deg)'">
+                                <i class="fa-solid fa-handshake"></i>
+                            </div>
+                            <div>
+                                <p style="font-size: 14px; margin-bottom: 4px; color: var(--text-primary);"><strong>Deal closed won</strong></p>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.4;">TechCorp project marked as Finished. (₹45,000)</p>
+                                <p style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;"><i class="fa-regular fa-clock" style="margin-right: 4px;"></i> 5 hours ago</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 16px; padding: 8px; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(145,158,171,0.08)'" onmouseout="this.style.background='transparent'">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 171, 0, 0.12); color: #FFAB00; display: flex; justify-content: center; align-items: center; font-size: 16px; flex-shrink: 0; transition: transform 0.3s;" onmouseover="this.style.transform='rotate(15deg)'" onmouseout="this.style.transform='rotate(0deg)'">
+                                <i class="fa-solid fa-envelope-open-text"></i>
+                            </div>
+                            <div>
+                                <p style="font-size: 14px; margin-bottom: 4px; color: var(--text-primary);"><strong>Email sent</strong></p>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.4;">Follow-up proposal email sent to John Doe.</p>
+                                <p style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;"><i class="fa-regular fa-clock" style="margin-right: 4px;"></i> 1 day ago</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button style="width: 100%; margin-top: 24px; background: rgba(145, 158, 171, 0.08); color: var(--text-primary); border: 1px dashed var(--border); padding: 12px; font-weight: 600; border-radius: 8px; transition: background 0.2s;" onmouseover="this.style.background='rgba(145,158,171,0.16)'" onmouseout="this.style.background='rgba(145,158,171,0.08)'">View All Activity</button>
+                </div>
+            </div>
+<style>
+.graph-wrapper {
+    display: flex;
+    align-items: stretch;
+    height: 250px;
+}
+
+/* Y Axis */
+.y-axis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-right: 10px;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+/* Graph */
+.graph-container {
+    position: relative;
+    flex: 1;
+}
+
+/* X Axis */
+.x-axis {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* Bars */
+.bars {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 100%;
+    gap: 8px;
+}
+
+.bar {
+    width: 12%;
+    height: calc(var(--h) * 1%);
+    background: linear-gradient(to top, #00A76F, rgba(0,167,111,0.3));
+    border-radius: 6px 6px 0 0;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    animation: grow 0.8s ease forwards;
+}
+
+.highlight {
+    background: linear-gradient(to top, #00FF9C, #00A76F);
+    box-shadow: 0 0 10px rgba(0,255,156,0.4);
+}
+
+/* Line */
+.trend-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.trend-line path {
+    fill: none;
+    stroke: #00FF9C;
+    stroke-width: 3;
+    stroke-dasharray: 800;
+    stroke-dashoffset: 800;
+    animation: drawLine 1.5s ease forwards;
+}
+
+/* Arrow */
+.trend-arrow {
+    position: absolute;
+    right: 2%;
+    top: 20%;
+    width: 0;
+    height: 0;
+    border-left: 12px solid #00FF9C;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    opacity: 0;
+    animation: arrowShow 0.4s ease 1.5s forwards;
+}
+
+/* Animations */
+@keyframes grow {
+    to { transform: scaleY(1); }
+}
+
+@keyframes drawLine {
+    to { stroke-dashoffset: 0; }
+}
+
+@keyframes arrowShow {
+    to { opacity: 1; transform: translateX(5px); }
+}
+</style>
+
+
+
+            <!-- Bottom Row (Tasks & Tip) -->
+           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+
+    <!-- Tasks -->
+    <div class="task-container" style="padding: 24px; border-radius: 16px; display: flex; flex-direction: column;">
+
+        <!-- Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="font-size: 18px; font-weight: 700;">Upcoming Tasks</h3>
+
+            <button style="
+                padding: 8px 14px;
+                font-size: 13px;
+                background: rgba(0, 167, 111, 0.1);
+                color: #00A76F;
+                border-radius: 8px;
+                border: 1px solid rgba(0,167,111,0.3);
+                cursor: pointer;
+                transition: 0.2s;
+            " 
+            onmouseover="this.style.background='rgba(0,167,111,0.2)'"
+            onmouseout="this.style.background='rgba(0,167,111,0.1)'">
+                <i class="fa-solid fa-plus"></i> Add Task
+            </button>
+        </div>
+
+        <!-- Task List -->
+       <div class="task-container">
+
+    <div class="task-item">
+        <input type="checkbox">
+        <div class="task-content">
+            <p>Call TechCorp regarding proposal</p>
+            <span>Due: Today</span>
+        </div>
+        <span class="badge high">High</span>
+    </div>
+
+    <div class="task-item">
+        <input type="checkbox">
+        <div class="task-content">
+            <p>Prepare Q3 quarterly report</p>
+            <span>Due: Tomorrow</span>
+        </div>
+        <span class="badge medium">Medium</span>
+    </div>
+
+    <div class="task-item">
+        <input type="checkbox">
+        <div class="task-content">
+            <p>Review new inbound leads</p>
+            <span>Due: 2 days</span>
+        </div>
+        <span class="badge low">Low</span>
+    </div>
+
+</div>
+                <!-- Pro Tip -->
+                
         </section>
 
         <!-- Directory Section -->
@@ -117,7 +397,7 @@
         </section>
 
         <!-- Pipeline Section -->
-        <section id="sec-pipeline" class="section">
+        <section id="sec-pipeline" class="section"><div class="pipeline-filter" style="margin-bottom:12px; display:flex; align-items:center; gap:8px;"><label style="color:var(--text-primary);">Filter Stage:</label><select onchange="filterPipelineStage(this.value)" style="padding:4px 8px; border:1px solid var(--border); border-radius:4px;"><option value="all">All</option><option value="new">New</option><option value="progress">In Progress</option><option value="finished">Finished</option></select></div>
             <div class="pipeline-board">
                 <div class="pipeline-col">
                     <h3>New <span id="count-new">0</span></h3>
@@ -165,10 +445,20 @@
                     </h3>
                     <div class="user-list" id="usersList"></div>
                 </div>
-            </div>
+            <div class="glass admin-card">
+    <h3><i class="fa-solid fa-gear" style="color: var(--accent); margin-right:8px;"></i> System Settings</h3>
+    <div class="input-group">
+        <label><input type="checkbox" id="toggleFeatureX"> Enable Feature X</label>
+    </div>
+    <div class="input-group">
+        <label><input type="checkbox" id="toggleFeatureY"> Enable Feature Y</label>
+    </div>
+</div>
+</div>
         </section>
 
     </main>
+</div>
 
     <!-- Add Customer Modal -->
     <div id="addCustomerModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
